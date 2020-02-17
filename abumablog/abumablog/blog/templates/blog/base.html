@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block meta_title %}Abuma% endblock %}</title>
+   <meta name="description" content="{% block meta_description %}呟きや感想、思ったことを書きましょう。{% endblock %}">
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header id="site-header">
+    <a href="{% url 'blog:list' %}">
+        <p id="title">Abuma</p>
+    </a>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer id="site-footer">
+    <div class="container" id="footer-container">
+
+     {% render_search_form request %}
+
+    </div>
+</footer>
+
+</body>
+</html>

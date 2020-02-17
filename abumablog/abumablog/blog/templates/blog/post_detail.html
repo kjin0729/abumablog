@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load blog %}
+
+{% block meta_title %}{{ post.title }} - {{ block.super }}{% endblock %}
+{% block meta_description %}{% endblock %}
+
+{% block content %}
+    <section id="post-detail" class="container">
+        <nav class="back"><a href="{% get_return_link request %}">戻る</a></nav>
+        <article class="post">
+            <h1 class="post-title">{{ post.title }}</h1>
+            <p class="meta">
+                <time datetime="{{ post.created_at | date:'Y-m-d' }}">{{ post.created_at | date:'Y年n月j日' }}</time>
+                -
+                {{ post.category }}
+            </p>
+            <div class="contents text-left">
+                {{ post.text | linebreaks | urlize2 }}
+            </div>
+        </article>
+    </section>
+{% endblock %}
