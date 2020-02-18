@@ -47,3 +47,11 @@ class Reply(models.Model):
 
     def __str__(self):
         return self.text[:20]
+
+
+class EmailPush(models.Model):
+    mail = models.EmailField('メールアドレス', unique=True)
+    is_active = models.BooleanField('有効フラグ', default=False)
+
+    def __str__(self):
+        return self.email

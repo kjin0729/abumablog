@@ -1,5 +1,6 @@
 from django import forms
-from .models import Comment, Reply
+from .models import Comment, Reply, EmailPush
+from .fields import SimpleCaptchaField
 
 class PostSearchForm(forms.Form):
 
@@ -10,6 +11,8 @@ class PostSearchForm(forms.Form):
 
 
 class CommentCreateForm(forms.ModelForm):
+
+    captcha = Simple
 
     class Meta:
         model = Comment
@@ -27,3 +30,22 @@ class ReplyCreateForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea
         }
+
+class EmailForm(forms.ModelForm):
+
+    class Meta:
+        model = EmailPush
+        fields = ('mail',)
+        widgets = {
+            'mail': forms.EmailInput(attrs={'placeholder': 'メールアドレス'})
+        }
+        error_messages = {
+            'mail': {
+                'unique': 'メールアドレスは登録済みです！',
+            }
+        }
+
+    def clean_email(self):
+        mail = self.cleaned_data['mail']
+        EmailPush.objects.filter(mail=mail, is_active=False).delete()
+        return
